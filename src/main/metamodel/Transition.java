@@ -28,8 +28,8 @@ public class Transition {
 		this.conditions = conditions;
 	}
 
-	public Map<String, Integer> getOperationVar() {
-		return operationVar;
+	public int getOperationVar() {
+		return operationVar.get(getOperationVariableName());
 	}
 
 	public void setOperationVar(String name, int i) {

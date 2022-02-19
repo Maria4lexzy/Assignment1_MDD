@@ -34,6 +34,11 @@ public class Machine {
 	public int numberOfIntegers() {
 		return integer.size();
 	}
+
+	public Map<String, Integer> getInteger() {
+		return integer;
+	}
+
 	public int getInteger(String key) {
 		return integer.get(key);
 	}
