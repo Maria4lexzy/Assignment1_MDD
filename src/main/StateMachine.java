@@ -59,14 +59,14 @@ public class StateMachine {
     public StateMachine increment(String string) {
         current.getTransitions().get(current.getTransitions().size()-1).setOperationVar(string, 1);
         current.getTransitions().get(current.getTransitions().size()-1).setOperations("increment");
-        integer.put(string,integer.get(string)+1);
+
         return this;
     }
 
     public StateMachine decrement(String string) {
         current.getTransitions().get(current.getTransitions().size()-1).setOperationVar(string, -1);
         current.getTransitions().get(current.getTransitions().size()-1).setOperations("decrement");
-        integer.put(string,integer.get(string)-1);
+
         return this;
     }
 

@@ -27,40 +27,60 @@ public class MachineInterpreter {
 		for(Transition t: currentState.getTransitions()) {
 			if(t.getEvent().equals(event))
 			{
-				if(t.hasOperation()){
-					varStates.put(t.getOperationVariableName(),t.getOperationVar());
-				}
 
-				if(t.isConditional()){
+boolean conditionalPass=true;
+				 if(t.isConditional()){
+					 conditionalPass=false;
 					if(t.isConditionEqual()){
+
 						if(varStates.get(t.getConditionVariableName())==t.getConditionComparedValue()){
 							currentState = t.getTarget();
-							return;
+							conditionalPass=true;
 						}
 					}
 					else if(t.isConditionGreaterThan()){
 						if(varStates.get(t.getConditionVariableName())>t.getConditionComparedValue()){
 							currentState = t.getTarget();
-							return;
+							conditionalPass=true;
+
 						}
 					}
 					else if(t.isConditionLessThan()){
 						if(varStates.get(t.getConditionVariableName())<t.getConditionComparedValue()){
 							currentState = t.getTarget();
-							return;
+							conditionalPass=true;
+
 						}
 					}
-
-
 				}
+				if(t.hasOperation()) {
+				 if(conditionalPass)
+				 {
+
+						 if (t.hasSetOperation()) {
+							 varStates.put(t.getOperationVariableName(), t.getOperationVar());
+						 }
+						 if (t.hasIncrementOperation()) {
+							 varStates.put(t.getOperationVariableName(), varStates.get(t.getOperationVariableName()) + t.getOperationVar());
+
+						 }
+						 if (t.hasDecrementOperation()) {
+							 varStates.put(t.getOperationVariableName(), varStates.get(t.getOperationVariableName()) + t.getOperationVar());
+						 }
+					 currentState = t.getTarget();
+					 return;
+				 }
+				 }
 				else{
-					currentState = t.getTarget();
-					return;
+					if(conditionalPass)
+					{
+						currentState = t.getTarget();
+						return;
+					}
 				}
 
 
 
-				return;
 			}
 		}
 
